@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="../styles/global.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles/signupLogin.css" />
+    <title>Log in</title>
+    <script type="module" src="login.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <img src="../Fill 214.svg" alt="world" />
+      <p>My travel journal.</p>
+    </header>
+
+    <main>
+      <h1>Log in</h1>
+      <form id="loginForm" class="basicForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" />
+        </div>
+
+        <button type="submit" id="submitBtn" class="buttonFill">Log in</button>
+        <p class="button-error">We couldn’t find an account matching the email and password you entered. Please check your email and password and try again.</p>
+      </form>
+    </main>
+  </body>
+</html>
