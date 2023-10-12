@@ -11,7 +11,9 @@ const createDestinationElement = (destination) =>  {
   
     card.querySelector('.image').src = destination.image;
     card.querySelector('.destination-country').textContent = destination.country;
-    card.querySelector('.link').href = destination.link;
+    console.log("what is this in the end??",  destination.link)
+    card.querySelector('.link').href = `http://${destination.link}`;
+    card.querySelector('.link').target = '_blank';
     card.querySelector('.destination-title').textContent = destination.title;
     card.querySelector('.arrival-date').textContent = destination.arrivalDate ? destination.arrivalDate.substring(0, 10): destination.arrivalDate;
     card.querySelector('.departure-date').textContent = destination.departureDate ? destination.departureDate.substring(0, 10): destination.departureDate;
@@ -27,9 +29,7 @@ const renderDestinations = async () =>  {
     try {
       const response = await fetch('http://localhost:3000/destinations');
       const destinations = await response.json();
-      console.log("destinations", destinations);
 
-  
       const destinationElements = destinations.map(createDestinationElement);
       destinationElements.forEach((element) => {
         destinationList.appendChild(element);
@@ -41,7 +41,6 @@ const renderDestinations = async () =>  {
         deleteButtons.forEach((button) => {
         button.addEventListener('click', async (event) => {
             const id = event.target.dataset._id;
-            console.log("this is the id", id)
             try {
             const response = await fetch(`http://localhost:3000/destinations/${id}`, {
                 method: 'DELETE',
@@ -76,9 +75,14 @@ const renderDestinations = async () =>  {
                 }
             })
 
-            console.log("what is the data here?", selectedDestination )
             localStorage.setItem('selectedDestination', JSON.stringify(selectedDestination));
-            window.location.href = `createDestinationPage.html?update=true&id=${selectedDestination[0]._id}`;
+            localStorage.setItem('updated', 'true');
+            
+            if (localStorage.getItem('updated') === 'true') { // Check if localStorage has been updated
+                window.location.href = `createDestinationPage.html?update=true&id=${selectedDestination[0]._id}`;
+              } else {
+                console.log('localStorage has not been updated');
+              }
 
         });
         });
